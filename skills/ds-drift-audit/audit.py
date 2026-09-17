@@ -161,9 +161,19 @@ def parse_comment(comment: str):
     return source_tags, figma_hint, has_diff_flag, diff_detail
 
 
-TOKEN_DECL_RE = re.compile(
-    r"--(sp-[\w-]+):\s*(.*?);\s*(?:/\*(.*?)\*/)?\s*(?=\n|$)", re.S
-)
+# バンドルのトークン接頭辞。環境によって違うので定数にしておく（CLI の --token-prefix で上書き可）。
+# 接頭辞で絞るのは、DS 以外の CSS 変数を拾わないため。
+TOKEN_PREFIX = "ds-"
+
+
+def build_token_decl_re(prefix: str):
+    return re.compile(
+        r"--(" + re.escape(prefix) + r"[\w-]+):\s*(.*?);\s*(?:/\*(.*?)\*/)?\s*(?=\n|$)",
+        re.S,
+    )
+
+
+TOKEN_DECL_RE = build_token_decl_re(TOKEN_PREFIX)
 
 
 def parse_block(block_text: str):
@@ -881,12 +891,17 @@ def print_terminal_summary(report: dict):
 # メイン
 # ---------------------------------------------------------------------------
 def run(bundle_dir: Path, figma_primitives_path: Path, out_dir: Path,
-        figma_primitives_dark_path: Path = None):
+        figma_primitives_dark_path: Path = None, expect_token_count: int = None):
     records = build_bundle_records(bundle_dir)
 
-    # 自己チェック: 214トークン取りこぼしなくパースできていること
-    # 214 は元の環境のバンドルのトークン数。自分のバンドルの件数に書き換えて使う。
-    assert len(records) == 214, f"parsed count mismatch: expected 214, got {len(records)}"
+    # 任意の自己チェック: バンドルを取りこぼしなくパースできているかを件数で確かめる。
+    # 件数は環境ごとに違うので、--expect-token-count で渡されたときだけ検証する
+    # （既定では検証しない。ここを固定値にすると、他のバンドルで必ず落ちる）。
+    if expect_token_count is not None and len(records) != expect_token_count:
+        raise SystemExit(
+            f"パース件数が合いません: 期待 {expect_token_count} / 実際 {len(records)}。"
+            "バンドルの取得が途中で切れていないか確認してください。"
+        )
 
     raw_map, normalized_map, reverse_index, unparsed = load_figma_primitives(
         figma_primitives_path
@@ -941,10 +956,20 @@ def main():
     parser.add_argument("--figma-primitives-dark", type=Path, default=None,
                         help="任意: darkモードのプリミティブJSON。渡すとdark照合も行う。")
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
+    parser.add_argument("--expect-token-count", type=int, default=None,
+                        help="任意: バンドルのトークン件数。渡すと件数が一致するかを検証する"
+                             "（取得が途中で切れたことに気づくため）。既定では検証しない。")
+    parser.add_argument("--token-prefix", default=TOKEN_PREFIX,
+                        help=f"バンドルのトークン接頭辞（既定 {TOKEN_PREFIX}）。"
+                             "自分の DS の接頭辞に合わせる。")
     args = parser.parse_args()
 
+    if args.token_prefix != TOKEN_PREFIX:
+        globals()["TOKEN_DECL_RE"] = build_token_decl_re(args.token_prefix)
+
     run(args.bundle_dir, args.figma_primitives, args.out_dir,
-        figma_primitives_dark_path=args.figma_primitives_dark)
+        figma_primitives_dark_path=args.figma_primitives_dark,
+        expect_token_count=args.expect_token_count)
 
 
 if __name__ == "__main__":
