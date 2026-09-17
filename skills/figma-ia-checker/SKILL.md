@@ -1,3 +1,8 @@
+---
+name: figma-ia-checker
+description: Figma の UI 画面の情報設計をチェックし、問題点と改善提案をレポートするスキル。単一画面でも、複数画面を渡してフローとしても見られる（例: /figma-ia-checker <FigmaのURL>）。
+---
+
 # /figma-ia-checker
 
 FigmaのUI画面の情報設計をチェックし、問題点と改善提案をレポートするスキル。
