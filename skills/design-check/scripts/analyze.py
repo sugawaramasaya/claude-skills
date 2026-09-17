@@ -154,7 +154,7 @@ def render_gravity_overlay(img: Image.Image, result: dict, out_path: Path, pad: 
         rel = result["relative_to"]
         pcx, pcy = rel["container_center"]
         if cx0 <= pcx <= cx1 and cy0 <= pcy <= cy1:
-            c.draw_cross(draw, to_local((pcx, pcy)), (0, 155, 250), size=18, width=2, dashed=True)
+            c.draw_cross(draw, to_local((pcx, pcy)), (59, 130, 246), size=18, width=2, dashed=True)
 
     crop.save(out_path)
 
