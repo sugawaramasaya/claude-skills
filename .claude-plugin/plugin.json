@@ -1,0 +1,19 @@
+{
+  "name": "claude-skills",
+  "version": "0.1.0",
+  "description": "デザイナーの実務（Figma の作図・デザインの検品・チームからの受信の集約・作業ログ）を Claude Code 側に寄せるスキル25個。組織固有の値はプレースホルダ化したテンプレート。",
+  "author": {
+    "name": "sugawaramasaya",
+    "url": "https://github.com/sugawaramasaya"
+  },
+  "repository": "https://github.com/sugawaramasaya/claude-skills",
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "figma",
+    "design-system",
+    "design-review",
+    "worklog",
+    "digest"
+  ]
+}

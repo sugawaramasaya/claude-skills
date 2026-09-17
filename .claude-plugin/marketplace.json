@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-skills",
+  "description": "デザイン実務まわりの Claude Code スキル集",
+  "owner": {
+    "name": "sugawaramasaya",
+    "url": "https://github.com/sugawaramasaya"
+  },
+  "plugins": [
+    {
+      "name": "claude-skills",
+      "description": "デザイナーの実務（Figma の作図・デザインの検品・チームからの受信の集約・作業ログ）を Claude Code 側に寄せるスキル25個。組織固有の値はプレースホルダ化したテンプレート。",
+      "author": {
+        "name": "sugawaramasaya",
+        "url": "https://github.com/sugawaramasaya"
+      },
+      "source": "./",
+      "category": "design",
+      "homepage": "https://github.com/sugawaramasaya/claude-skills"
+    }
+  ]
+}
