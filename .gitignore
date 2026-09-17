@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# スキルの実行時生成物（レポート・作業ディレクトリ）
+work/
+out/
+fixtures/
+*.report.html
+*.report.json
+
+# ★ 自分の環境固有の値（コミットしない）
+skills/design-check/config/palette.json
+skills/ds-drift-audit/figma_primitives.light.json
+skills/ds-drift-audit/figma_primitives.dark.json
+.env
+.env.local

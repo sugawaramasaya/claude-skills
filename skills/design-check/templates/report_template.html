@@ -1,0 +1,264 @@
+<title>{{TITLE}}</title>
+<style>
+:root {
+  --dc-bg: #ffffff;
+  --dc-bg-elevated: #f7f8fa;
+  --dc-fg: #1a1a2e;
+  --dc-fg-muted: #6b7280;
+  --dc-border: #e5e7eb;
+  --dc-green: #10B981;
+  --dc-yellow: #F59E0B;
+  --dc-red: #EC4899;
+  --dc-accent: #3B82F6;
+  --dc-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+:root[data-theme="dark"] {
+  --dc-bg: #14161c;
+  --dc-bg-elevated: #1c1f27;
+  --dc-fg: #e7e9ee;
+  --dc-fg-muted: #9aa1b1;
+  --dc-border: #2b2f3a;
+  --dc-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --dc-bg: #14161c;
+    --dc-bg-elevated: #1c1f27;
+    --dc-fg: #e7e9ee;
+    --dc-fg-muted: #9aa1b1;
+    --dc-border: #2b2f3a;
+    --dc-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+}
+:root[data-theme="light"] {
+  --dc-bg: #ffffff;
+  --dc-bg-elevated: #f7f8fa;
+  --dc-fg: #1a1a2e;
+  --dc-fg-muted: #6b7280;
+  --dc-border: #e5e7eb;
+  --dc-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+.dc-report {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  color: var(--dc-fg);
+  background: var(--dc-bg);
+  line-height: 1.7;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+.dc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.dc-header h1 {
+  font-size: 20px;
+  margin: 0 0 4px;
+}
+
+.dc-header .dc-target {
+  color: var(--dc-fg-muted);
+  font-size: 13px;
+}
+
+.dc-theme-toggle {
+  flex-shrink: 0;
+  display: flex;
+  gap: 4px;
+  background: var(--dc-bg-elevated);
+  border: 1px solid var(--dc-border);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.dc-theme-toggle button {
+  border: none;
+  background: transparent;
+  color: var(--dc-fg-muted);
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.dc-theme-toggle button.dc-active {
+  background: var(--dc-bg);
+  color: var(--dc-fg);
+  box-shadow: var(--dc-shadow);
+}
+
+.dc-overall {
+  background: var(--dc-bg-elevated);
+  border: 1px solid var(--dc-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+}
+
+.dc-overall .dc-score {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.dc-overall .dc-summary {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--dc-fg-muted);
+}
+
+.dc-category {
+  border: 1px solid var(--dc-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+
+.dc-category h2 {
+  font-size: 16px;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dc-category .dc-priority {
+  font-size: 11px;
+  color: var(--dc-fg-muted);
+  border: 1px solid var(--dc-border);
+  border-radius: 999px;
+  padding: 1px 8px;
+  margin-left: auto;
+}
+
+.dc-category h3 {
+  font-size: 13px;
+  color: var(--dc-fg-muted);
+  margin: 16px 0 6px;
+}
+
+.dc-category ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13.5px;
+}
+
+.dc-category li {
+  margin-bottom: 4px;
+}
+
+.dc-assets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.dc-assets figure {
+  margin: 0;
+  max-width: 100%;
+}
+
+.dc-assets img {
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--dc-border);
+  display: block;
+}
+
+.dc-assets figcaption {
+  font-size: 11px;
+  color: var(--dc-fg-muted);
+  margin-top: 4px;
+  text-align: center;
+}
+
+.dc-chart {
+  margin-top: 12px;
+}
+
+.dc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin-top: 10px;
+}
+
+.dc-table th, .dc-table td {
+  border: 1px solid var(--dc-border);
+  padding: 6px 8px;
+  text-align: left;
+}
+
+.dc-table th {
+  background: var(--dc-bg-elevated);
+  font-weight: 600;
+}
+
+.dc-comparison {
+  border: 1px dashed var(--dc-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+
+.dc-footer {
+  margin-top: 32px;
+  font-size: 11px;
+  color: var(--dc-fg-muted);
+  text-align: center;
+}
+</style>
+<div class="dc-report" id="dc-report">
+  <div class="dc-header">
+    <div>
+      <h1>{{TITLE}}</h1>
+      <div class="dc-target">対象: {{TARGET}}</div>
+    </div>
+    <div class="dc-theme-toggle" role="group" aria-label="テーマ切り替え">
+      <button type="button" data-dc-theme="light">Light</button>
+      <button type="button" data-dc-theme="system" class="dc-active">System</button>
+      <button type="button" data-dc-theme="dark">Dark</button>
+    </div>
+  </div>
+
+  <div class="dc-overall">
+    <div class="dc-score">総合スコア: {{OVERALL_SCORE}}</div>
+    <div class="dc-summary">{{OVERALL_SUMMARY}}</div>
+  </div>
+
+  {{CATEGORIES}}
+
+  {{COMPARISON}}
+
+  <div class="dc-footer">design-check スキルによる自動生成レポート</div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  var buttons = document.querySelectorAll(".dc-theme-toggle button");
+  function applyTheme(mode) {
+    if (mode === "system") {
+      root.removeAttribute("data-theme");
+    } else {
+      root.setAttribute("data-theme", mode);
+    }
+    buttons.forEach(function (b) {
+      b.classList.toggle("dc-active", b.getAttribute("data-dc-theme") === mode);
+    });
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () {
+      applyTheme(b.getAttribute("data-dc-theme"));
+    });
+  });
+})();
+</script>
